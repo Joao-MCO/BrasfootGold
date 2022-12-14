@@ -26,11 +26,14 @@ import java.util.List;
 public class DeletePessoa extends JFrame {
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("futebolPU");
 	private EntityManager em = emf.createEntityManager();
-
+	private Tecnico t;
+	private Jogador j;
 	private ButtonGroup bg = new ButtonGroup();
 
 	private JPanel contentPane;
 	private JTextField textFieldNome;
+	private JTextField textFormacao;
+	private JTextField textPosicao;
 	public DeletePessoa(){
 		em.getTransaction().begin();
 		
@@ -66,29 +69,13 @@ public class DeletePessoa extends JFrame {
 		rdbtnJogador.setBounds(66, 100, 78, 21);
 		contentPane.add(rdbtnJogador);
 		bg.add(rdbtnJogador);
+		rdbtnJogador.setEnabled(false);
 		
 		final JRadioButton rdbtnTecnico = new JRadioButton("Tecnico");
 		rdbtnTecnico.setBounds(163, 100, 78, 21);
 		contentPane.add(rdbtnTecnico);
 		bg.add(rdbtnTecnico);
-		
-		
-		final JComboBox comboBoxFormacao = new JComboBox();
-		comboBoxFormacao.setEnabled(false);
-		comboBoxFormacao.setBounds(86, 155, 155, 21);
-		contentPane.add(comboBoxFormacao);
-		List<Esquema> esquemas = em.createQuery("select e from Esquema e").getResultList();
-		for(Esquema e : esquemas) {
-			comboBoxFormacao.addItem(e.getNomeclatura());
-		}
-		
-		rdbtnTecnico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnTecnico.isSelected()) {
-					comboBoxFormacao.setEnabled(true);
-				}
-			}
-		});
+		rdbtnTecnico.setEnabled(false);
 		
 		JLabel lblFormacao = new JLabel("FORMACAO:");
 		lblFormacao.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -100,15 +87,6 @@ public class DeletePessoa extends JFrame {
 		lblPosicao.setBounds(10, 203, 78, 13);
 		contentPane.add(lblPosicao);
 		
-		final JComboBox comboBoxPosicao = new JComboBox();
-		comboBoxPosicao.setEnabled(false);
-		comboBoxPosicao.setBounds(86, 200, 155, 21);
-		contentPane.add(comboBoxPosicao);
-		comboBoxPosicao.addItem(PosicaoEnum.GOLEIRO);
-		comboBoxPosicao.addItem(PosicaoEnum.DEFENSOR);
-		comboBoxPosicao.addItem(PosicaoEnum.MEIOCAMPISTA);
-		comboBoxPosicao.addItem(PosicaoEnum.ATACANTE);
-		
 		JLabel lblHabilidade = new JLabel("HABILIDADE:");
 		lblHabilidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblHabilidade.setBounds(10, 258, 78, 13);
@@ -118,26 +96,6 @@ public class DeletePessoa extends JFrame {
 		spinnerHabilidade.setBounds(86, 256, 47, 15);
 		spinnerHabilidade.setEnabled(false);
 		contentPane.add(spinnerHabilidade);
-		
-		rdbtnTecnico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnTecnico.isSelected()) {
-					comboBoxFormacao.setEnabled(true);
-					comboBoxPosicao.setEnabled(false);
-					spinnerHabilidade.setEnabled(false);
-				}
-			}
-		});
-		
-		rdbtnJogador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnJogador.isSelected()) {
-					comboBoxFormacao.setEnabled(false);
-					comboBoxPosicao.setEnabled(true);
-					spinnerHabilidade.setEnabled(true);
-				}
-			}
-		});
 		
 		JButton btnCancelar = new JButton("CANCELAR");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -169,29 +127,56 @@ public class DeletePessoa extends JFrame {
 		btnPesquisa.setBounds(255, 58, 20, 19);
 		contentPane.add(btnPesquisa);
 		
+		textFormacao = new JTextField();
+		textFormacao.setEnabled(false);
+		textFormacao.setEditable(false);
+		textFormacao.setColumns(10);
+		textFormacao.setBounds(87, 156, 154, 19);
+		contentPane.add(textFormacao);
+		
+		textPosicao = new JTextField();
+		textPosicao.setEditable(false);
+		textPosicao.setEnabled(false);
+		textPosicao.setColumns(10);
+		textPosicao.setBounds(87, 201, 154, 19);
+		contentPane.add(textPosicao);
+		
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Pessoa pessoa = new Pessoa();
+				pessoa.setNome(textFieldNome.getText());
+				if(em.createQuery("select p from Pessoa p where p.nome = '" + pessoa.getNome() + "'").getSingleResult().getClass() == Tecnico.class) {
+					t = (Tecnico) em.createQuery("select p from Pessoa p where p.nome = '" + pessoa.getNome() + "'").getSingleResult();
+					rdbtnTecnico.setSelected(true);
+					textFormacao.setText(t.getEsquema().getNomeclatura());
+					textPosicao.setText(null);
+					spinnerHabilidade.setValue(0);
+					spinnerIdade.setValue(t.getIdade());
+					rdbtnJogador.setSelected(false);
+				}else {
+					j = (Jogador) em.createQuery("select p from Pessoa p where p.nome = '" + pessoa.getNome() + "'").getSingleResult();
+					rdbtnJogador.setSelected(true);
+					textPosicao.setText(j.getPosicao().getSigla());
+					spinnerHabilidade.setValue(j.getHabilidade());
+					spinnerIdade.setValue(j.getIdade());
+					rdbtnTecnico.setSelected(false);
+					textFormacao.setText(null);
+				}
+				
+			}
+		});
+		
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Pessoa p = new Pessoa();
-				p.setNome(textFieldNome.getText());
-				p.setIdade((Integer) spinnerIdade.getValue());
-				if(rdbtnJogador.isSelected()) {
-					Jogador j = new Jogador(p);
-					j.setPosicao((PosicaoEnum) comboBoxPosicao.getSelectedItem());
-					j.setHabilidade((Integer) spinnerHabilidade.getValue());
-					em.persist(j);
-					em.getTransaction().commit();
-					em.close();
-					emf.close();
-				}else if(rdbtnTecnico.isSelected()) {
-					Tecnico t = new Tecnico(p);
-					System.out.println(comboBoxFormacao.getSelectedItem().toString());
-					Esquema esq = (Esquema) em.createQuery("from Esquema e where e.nomeclatura = '" + comboBoxFormacao.getSelectedItem().toString() + "'").getSingleResult();
-					t.setEsquema(esq);
-					em.persist(t);
-					em.getTransaction().commit();
-					em.close();
-					emf.close();
+				if(rdbtnTecnico.isSelected()) {
+					em.remove(t);
+				}else {
+					em.remove(j);
 				}
+				em.getTransaction().commit();
+				setVisible(false);
+				em.close();
+				emf.close();
 			}
 		});
 	}

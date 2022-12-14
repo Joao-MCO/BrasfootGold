@@ -1,10 +1,8 @@
 package br.edu.unifei.BrasfootGold.app;
 
 import java.awt.EventQueue;
-
 import br.edu.unifei.BrasfootGold.base.*;
 import br.edu.unifei.BrasfootGold.jogo.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -642,8 +640,8 @@ public class MainMenu extends JFrame {
 		
 		btnAddPessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddPessoa subFrame = new AddPessoa();
-				subFrame.setVisible(true);
+				AddPessoa subFrameAdd = new AddPessoa();
+				subFrameAdd.setVisible(true);
 			}
 		});
 		
@@ -664,6 +662,13 @@ public class MainMenu extends JFrame {
 		btnEdtPessoa.setBounds(312, 348, 112, 21);
 		contentPane.add(btnEdtPessoa);
 		
+		btnEdtPessoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EditPessoa subFrameEdt = new EditPessoa();
+				subFrameEdt.setVisible(true);
+			}
+		});
+		
 		JLabel lblRemover = new JLabel("REMOVER");
 		lblRemover.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRemover.setForeground(new Color(255, 0, 0));
@@ -677,9 +682,16 @@ public class MainMenu extends JFrame {
 		contentPane.add(btnRmvClube);
 		
 		JButton btnRmvPessoa = new JButton("Pessoa");
+		btnRmvPessoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeletePessoa subFrameDlt = new DeletePessoa();
+				subFrameDlt.setVisible(true);
+			}
+		});
 		btnRmvPessoa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnRmvPessoa.setBounds(546, 348, 112, 21);
 		contentPane.add(btnRmvPessoa);
+		
 		
 		JLabel lblNewLabel = new JLabel("BRASFOOT");
 		lblNewLabel.setFont(new Font("Yu Gothic", Font.BOLD, 52));

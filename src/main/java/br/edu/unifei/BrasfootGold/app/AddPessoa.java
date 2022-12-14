@@ -190,6 +190,7 @@ public class AddPessoa extends JFrame {
 					em.close();
 					emf.close();
 				}
+				setVisible(false);
 			}
 		});
 	}
