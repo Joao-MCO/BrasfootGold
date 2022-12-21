@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +30,9 @@ import javax.swing.JInternalFrame;
 public class MainMenu extends JFrame {
 	private static ArrayList<Clube> clubes = new ArrayList<Clube>();
 	private static ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
-	private static ArrayList<Jogador> jogadores = new ArrayList<Jogador>();
+	private static ArrayList<Jogador> jogadoresGalo = new ArrayList<Jogador>();
+	private static ArrayList<Jogador> jogadoresFlamengo = new ArrayList<Jogador>();
+	private static ArrayList<Jogador> jogadoresPalmeiras = new ArrayList<Jogador>();
 	private static ArrayList<Jogador> todos = new ArrayList<Jogador>();
 	private static ArrayList<Juiz> juizes = new ArrayList<Juiz>();
 	private static ArrayList<Esquema> esquemas = new ArrayList<Esquema>();
@@ -256,7 +260,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Everson");
 		j.setPosicao(PosicaoEnum.GOLEIRO);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -264,7 +268,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Mariano");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(45)+55);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -272,7 +276,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Jemerson");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(35)+65);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -280,7 +284,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Bruno Fuchs");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -288,7 +292,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Guilherme Arana");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -296,7 +300,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Allan");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -304,7 +308,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Jair");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -312,7 +316,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Zaracho");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -320,7 +324,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Eduardo Vargas");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -328,7 +332,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Hulk");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(15)+85);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -336,22 +340,20 @@ public class MainMenu extends JFrame {
 		j.setNome("Paulinho");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresGalo.add(j);
 		todos.add(j);
 		
-		clubes.get(2).setJogadores(jogadores);
+		clubes.get(2).setJogadores(jogadoresGalo);
 		clubes.get(2).getTecnico().setEsquema(esquemas.get(1));
 		clubes.get(2).getTecnico().getEsquema().setMentalidade(MentalidadeEnum.OFENSIVA);
-		jogadores.clear();
 		
 		//Flamengo
-		jogadores = new ArrayList<Jogador>();
 		j = new Jogador();
 		j.setClube(clubes.get(9));
 		j.setNome("Santos");
 		j.setPosicao(PosicaoEnum.GOLEIRO);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -359,7 +361,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Mateusinho");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(35)+65);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -367,7 +369,7 @@ public class MainMenu extends JFrame {
 		j.setNome("David Luiz");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -375,7 +377,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Leo Pereira");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 
 		j = new Jogador();
@@ -383,7 +385,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Filipe Luis");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -391,7 +393,7 @@ public class MainMenu extends JFrame {
 		j.setNome("João Gomes");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -399,7 +401,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Thiago Maia");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -407,7 +409,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Everton Ribeiro");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -415,7 +417,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Giorgian De Arrascaeta");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(15)+85);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -423,7 +425,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Gabigol");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(15)+85);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -431,21 +433,19 @@ public class MainMenu extends JFrame {
 		j.setNome("Bruno Henrique");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresFlamengo.add(j);
 		todos.add(j);
 		
-		clubes.get(9).setJogadores(jogadores);
+		clubes.get(9).setJogadores(jogadoresFlamengo);
 		clubes.get(9).getTecnico().getEsquema().setMentalidade(MentalidadeEnum.OFENSIVA);
-		jogadores.clear();
 		
 		//Palmeiras
-		jogadores = new ArrayList<Jogador>();
 		j = new Jogador();
 		j.setClube(clubes.get(16));
 		j.setNome("Weverton");
 		j.setPosicao(PosicaoEnum.GOLEIRO);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -453,7 +453,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Marcos Rocha");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -461,7 +461,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Gustavo Gomez");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -469,7 +469,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Murilo");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -477,7 +477,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Piquerez");
 		j.setPosicao(PosicaoEnum.DEFENSOR);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -485,7 +485,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Danilo");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -493,7 +493,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Zé Rafael");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -501,7 +501,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Bruno Tabata");
 		j.setPosicao(PosicaoEnum.MEIOCAMPISTA);
 		j.setHabilidade(r.nextInt(30)+70);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -509,7 +509,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Dudu");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(20)+80);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -517,7 +517,7 @@ public class MainMenu extends JFrame {
 		j.setNome("Rony");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
 		j = new Jogador();
@@ -525,12 +525,11 @@ public class MainMenu extends JFrame {
 		j.setNome("Endrick");
 		j.setPosicao(PosicaoEnum.ATACANTE);
 		j.setHabilidade(r.nextInt(25)+75);
-		jogadores.add(j);
+		jogadoresPalmeiras.add(j);
 		todos.add(j);
 		
-		clubes.get(16).setJogadores(jogadores);
+		clubes.get(16).setJogadores(jogadoresPalmeiras);
 		clubes.get(16).getTecnico().setEsquema(esquemas.get(1));
-		jogadores.clear();
 		
 		//Adição dos Árbitros
 		ju.setNome("Wilton Pereira Sampaio");
@@ -564,12 +563,10 @@ public class MainMenu extends JFrame {
 			System.out.println(cl.getNome());
 			em.persist(cl);
 		}
-		
-		for(Jogador jo : todos) {
-			System.out.println(jo.getNome());
-			em.persist(jo);
+		for(Esquema esq : esquemas) {
+			System.out.println(esq.getNomeclatura());
+			em.persist(esq);
 		}
-		
 		for(Tecnico te : tecnicos) {
 			System.out.println(te.getNome());
 			em.persist(te);
@@ -578,9 +575,9 @@ public class MainMenu extends JFrame {
 			System.out.println(juiz.getNome());
 			em.persist(juiz);
 		}
-		for(Esquema esq : esquemas) {
-			System.out.println(esq.getNomeclatura());
-			em.persist(esq);
+		for(Jogador jo : todos) {
+			System.out.println(jo.getNome());
+			em.persist(jo);
 		}
 		em.getTransaction().commit();
 		em.close();
@@ -661,6 +658,12 @@ public class MainMenu extends JFrame {
 		contentPane.add(lblEditar);
 		
 		JButton btnEdtClube = new JButton("Clube");
+		btnEdtClube.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(new JFrame(), "Tela não desenvolvida ainda! :(", "Warning",
+				        JOptionPane.WARNING_MESSAGE);
+			}
+		});
 		btnEdtClube.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnEdtClube.setBounds(312, 286, 112, 21);
 		contentPane.add(btnEdtClube);
@@ -685,6 +688,12 @@ public class MainMenu extends JFrame {
 		contentPane.add(lblRemover);
 		
 		JButton btnRmvClube = new JButton("Clube");
+		btnRmvClube.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(new JFrame(), "Tela não desenvolvida ainda! :(", "Warning",
+				        JOptionPane.WARNING_MESSAGE);
+			}
+		});
 		btnRmvClube.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnRmvClube.setBounds(546, 286, 112, 21);
 		contentPane.add(btnRmvClube);
@@ -741,6 +750,12 @@ public class MainMenu extends JFrame {
 		contentPane.add(btnVerPartida);
 		
 		JButton btnJogar = new JButton("Jogar Partida");
+		btnJogar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JogarPartida subFramePartida = new JogarPartida();
+				subFramePartida.setVisible(true);
+			}
+		});
 		btnJogar.setForeground(new Color(0, 0, 0));
 		btnJogar.setBackground(new Color(153, 255, 153));
 		btnJogar.setFont(new Font("Tahoma", Font.PLAIN, 21));

@@ -108,7 +108,7 @@ public class AddClube extends JFrame {
 		
 		final JButton btnConfirmar = new JButton("CONFIRMAR");
 		btnConfirmar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnConfirmar.setBounds(326, 423, 123, 30);
+		btnConfirmar.setBounds(326, 300, 123, 30);
 		contentPane.add(btnConfirmar);
 		btnConfirmar.setEnabled(false);
 		

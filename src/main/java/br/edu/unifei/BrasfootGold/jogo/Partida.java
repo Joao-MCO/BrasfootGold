@@ -5,6 +5,7 @@ import java.util.Random;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import br.edu.unifei.BrasfootGold.app.ResultadoJogo;
 import br.edu.unifei.BrasfootGold.base.Jogador;
 import br.edu.unifei.BrasfootGold.base.Juiz;
 import br.edu.unifei.BrasfootGold.base.PosicaoEnum;
@@ -14,9 +15,13 @@ public class Partida extends PartidaAbstrata{
 	private Equipe1 mandante;
 	private Equipe2 visitante;
 	private Juiz juiz;
-	
+	private EntityManagerFactory emf =
+			Persistence.createEntityManagerFactory("futebolPU");
+	private EntityManager em = emf.createEntityManager();
 	@Override
 	public void jogo(Equipe eq1, Equipe eq2) {
+		this.setTempo(90);
+		em.getTransaction().begin();
 		Random r = new Random();
 		mandante = (Equipe1) eq1;
 		visitante = (Equipe2) eq2;
@@ -52,17 +57,19 @@ public class Partida extends PartidaAbstrata{
 			}
 			System.out.println();
 		}
-		System.out.println("90'");
 		mandante.setSaldoGols(getGolsMandante() - getGolsVisitante());
 		visitante.setSaldoGols(getGolsVisitante() - getGolsMandante());
-		if(getGolsMandante() > getGolsVisitante()) {
-			mandante.setPontuacao(mandante.getPontuacao() + 3);
-		}else if(getGolsMandante() == getGolsVisitante()) {
-			mandante.setPontuacao(mandante.getPontuacao() + 1);
-			visitante.setPontuacao(visitante.getPontuacao() + 1);
-		}else {
-			visitante.setPontuacao(visitante.getPontuacao() + 3);			
-		}
+		Resultado res = new Resultado();
+		res.setMandante(eq1.getClube());
+		res.setVisitante(eq2.getClube());
+		res.setGolsMandante(getGolsMandante());
+		res.setGolsVisitante(getGolsVisitante());
+		em.persist(res);
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		ResultadoJogo frame = new ResultadoJogo(res.getMandante(),res.getVisitante(), res.getGolsMandante(), res.getGolsVisitante());
+		frame.setVisible(true);
 	}
 	
 	private int acao(Random r) {
