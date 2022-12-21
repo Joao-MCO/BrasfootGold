@@ -19,9 +19,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import javax.swing.JInternalFrame;
 
 public class MainMenu extends JFrame {
 	private static ArrayList<Clube> clubes = new ArrayList<Clube>();
@@ -628,6 +630,12 @@ public class MainMenu extends JFrame {
 		contentPane.add(lblAdicionar);
 		
 		JButton btnAddClube = new JButton("Clube");
+		btnAddClube.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddClube subAddClube = new AddClube();
+				subAddClube.setVisible(true);
+			}
+		});
 		btnAddClube.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnAddClube.setBounds(73, 286, 112, 21);
 		contentPane.add(btnAddClube);
@@ -738,5 +746,6 @@ public class MainMenu extends JFrame {
 		btnJogar.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		btnJogar.setBounds(505, 504, 194, 36);
 		contentPane.add(btnJogar);
+		
 	}
 }

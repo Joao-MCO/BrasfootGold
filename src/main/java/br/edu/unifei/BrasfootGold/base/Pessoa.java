@@ -8,6 +8,6 @@ import lombok.Data;
 @Entity
 public class Pessoa{
 	@Id @GeneratedValue private long id;
-	private String nome;
+	@Column(unique=true) private String nome;
 	private int idade;
 }
